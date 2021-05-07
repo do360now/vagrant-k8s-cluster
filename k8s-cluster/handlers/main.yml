@@ -1,0 +1,8 @@
+---
+# #Restart containerd with the new configuration
+# sudo systemctl restart containerd
+
+- name: Restart containerd
+  service:
+    name: containerd
+    state: restarted

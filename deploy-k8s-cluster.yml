@@ -1,0 +1,43 @@
+---
+  
+
+# $$$$$$$\                       $$$$$$\                      
+# $$  __$$\                     $$  __$$\                     
+# $$ |  $$ | $$$$$$\ $$\    $$\ $$ /  $$ | $$$$$$\   $$$$$$$\ 
+# $$ |  $$ |$$  __$$\\$$\  $$  |$$ |  $$ |$$  __$$\ $$  _____|
+# $$ |  $$ |$$$$$$$$ |\$$\$$  / $$ |  $$ |$$ /  $$ |\$$$$$$\  
+# $$ |  $$ |$$   ____| \$$$  /  $$ |  $$ |$$ |  $$ | \____$$\ 
+# $$$$$$$  |\$$$$$$$\   \$  /    $$$$$$  |$$$$$$$  |$$$$$$$  |
+# \_______/  \_______|   \_/     \______/ $$  ____/ \_______/ 
+#                                         $$ |                
+#                                         $$ |                
+#                                         \__|                
+
+
+##########################
+# Ansible Playbook
+#########################
+
+- name: Checking the required variables and the connection to the servers
+  hosts: "cluster"
+  become: true
+  gather_facts: no
+  # strategy: free      # Allows each server to advance at its own pace
+  serial: 1           # Max number of server in parallel
+  tasks:
+
+    - name: "Configure Master and Worker Nodes"
+      become: true
+      block:
+        - name: Configure Cluster1 Master1 Node
+          include_role:
+            name: k8s-cluster
+
+        # - name: Configure Cluster1 Node1
+        #   include_role:
+        #     name: k8s-cluster
+
+        # - name: Configure Cluster1 Node2
+        #   include_role:
+        #     name: k8s-cluster
+
