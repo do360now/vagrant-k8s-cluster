@@ -34,6 +34,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "c1-master1" do |app|
     app.vm.hostname = "c1-master1"
     app.vm.network :private_network, ip: "192.168.60.4"
+    
+    app.vm.provider :virtualbox do |vapp|
+      vapp.memory = 2048
+       end
   end
 
 # k8s Node 1. 

@@ -1,1 +1,1 @@
-{"virtualbox":{"/vagrant":{"disabled":false,"guestpath":"/vagrant","hostpath":"C:/Users/cmc/Documents/DevOps/tests/vagrant-k8s-cluster","__vagrantfile":true}}}
+{"virtualbox":{"/vagrant":{"disabled":false,"guestpath":"/vagrant","hostpath":"C:/Users/cmc/Documents/DevOps/kubernetes/tests/gh/vagrant-k8s-cluster","__vagrantfile":true}}}

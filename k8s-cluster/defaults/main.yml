@@ -5,7 +5,19 @@
 
 k8s_version: "1.20.1-00"
 
-docker_user_deploy: vagrant
+config_files:
+ - { src: "containerd.conf", dest: "/etc/modules-load.d/containerd.conf" }
+ - { src: "99-kubernetes-cri.conf", dest: "/etc/sysctl.d/99-kubernetes-cri.conf" }
+ - { src: "config.toml", dest: "/etc/containerd/config.toml" }
+ - { src: "kubernetes.list", dest: "/etc/apt/sources.list.d/kubernetes.list" }
+
+#  templates_applicatifs:
+#   - { src: "application.properties.j2", dest: "{{ version_config_dir }}/application.properties",  owner: "{{ app_server_user }}", group: "{{ app_server_user }}", mode: "0755" }
+ 
+
+
+
+k8s_user_deploy: vagrant
 
 #version: "{{ new_version }}"
 # docker_image_version: "{{ new_version | upper }}"

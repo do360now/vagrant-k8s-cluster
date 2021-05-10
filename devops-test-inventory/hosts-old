@@ -1,4 +1,15 @@
-[cluster]
+
+[c1-master1]
 c1-master1 ansible_host=192.168.60.4 ansible_ssh_private_key_file=/home/vagrant/cert/insecure_private_key ansible_python_interpreter=/usr/bin/python3
+
+[c1-node1]
 c1-node1 ansible_host=192.168.60.5 ansible_ssh_private_key_file=/home/vagrant/cert/insecure_private_key ansible_python_interpreter=/usr/bin/python3
+
+[c1-node2]
 c1-node2 ansible_host=192.168.60.6 ansible_ssh_private_key_file=/home/vagrant/cert/insecure_private_key ansible_python_interpreter=/usr/bin/python3
+
+
+[cluster:children]
+c1-master1
+c1-node1
+c1-node2

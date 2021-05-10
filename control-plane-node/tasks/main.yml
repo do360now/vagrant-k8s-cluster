@@ -12,7 +12,7 @@
 ##############################################
 # Install necesary packages
 ##############################################
-- name: Install packages kubelet, kubeadm, kubectl, and containerd
+- name: Verify requiremnts is done 
   include_tasks: "02_install_k8s.yml"
 
 ##############################################

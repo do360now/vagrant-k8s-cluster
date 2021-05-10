@@ -1,0 +1,14 @@
+---
+
+# #Need to add CRI socket since there's a check for docker in the kubeadm init process, 
+# #if you don't you'll get this error...
+# #   error execution phase preflight: docker is required for container runtime: exec: "docker": executable file not found in $PATH
+# sudo kubeadm init \
+#     --config=ClusterConfiguration.yaml \
+#     --cri-socket /run/containerd/containerd.sock
+
+
+# free-form (string) arguments, all arguments on one line
+- name: Begin the process of bootstrapping the cluster
+  command: 
+     - "kubeadm init --config=ClusterConfiguration.yaml    --cri-socket /run/containerd/containerd.sock" 
