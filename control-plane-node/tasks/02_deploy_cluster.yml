@@ -8,7 +8,76 @@
 #     --cri-socket /run/containerd/containerd.sock
 
 
-# free-form (string) arguments, all arguments on one line
-- name: Begin the process of bootstrapping the cluster
-  command: 
-     - "kubeadm init --config=ClusterConfiguration.yaml    --cri-socket /run/containerd/containerd.sock" 
+
+# # free-form (string) arguments, all arguments on one line
+# - name: Begin the process of bootstrapping the cluster
+#   chdir: "{{ k8s_home_dir }}"
+#   command: 
+#      - "kubeadm init     --config=ClusterConfiguration.yaml     --cri-socket /run/containerd/containerd.sock" 
+
+
+
+    # argv (list) arguments, each argument on a separate line, 'args' keyword not necessary
+# 'argv' is a parameter, indented one level from the module
+
+- name: Check if cluster is running
+  command: "kubectl get nodes "
+  register: cluster_info
+
+- name: printout result
+  debug:
+    var: cluster_info
+
+- name: Use 'argv' to send a command as a list - leave 'command' empty
+  command: "kubeadm init --config=ClusterConfiguration.yaml  --cri-socket /run/containerd/containerd.sock"
+  args:
+    chdir: /home/vagrant/k8s
+  # chdir: "{{ k8s_home_dir }}"
+  when: cluster_info.rc != READY
+    
+
+#  #Configure our account on the Control Plane Node to have admin access to the API server from a non-privileged account.
+# mkdir -p $HOME/.kube
+# sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+# sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+#Configure our account on the Control Plane Node to have admin access to the API server from a non-privileged account.
+- name: Copy 
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: $HOME/.kube/config/admin.conf
+  remote_src: yes  
+
+- name: run command
+  command: "chown $(id -u):$(id -g) $HOME/.kube/config"
+  args:
+    chdir: /home/vagrant/.kube
+
+# #1 - Creating a Pod Network
+# #Deploy yaml file for your pod network.
+# kubectl apply -f calico.yaml
+
+- name: Create a Deployment by reading the definition from a local file
+  community.kubernetes.k8s:
+    state: present
+    src: calico.yaml
+
+
+
+# #All system pods should be Running
+# kubectl get pods --all-namespaces
+
+- name: Check the status of the pods
+  community.kubernetes.k8s:
+    name: get pods
+    namespace: all
+
+
+# #Get a list of our current nodes, just the Control Plane Node/Master Node...should be Ready.
+# kubectl get nodes 
+
+- name: Check the status of the pods
+  community.kubernetes.k8s:
+    name: get nodes
+    

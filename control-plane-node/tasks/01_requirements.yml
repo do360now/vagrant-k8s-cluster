@@ -4,11 +4,12 @@
 #Copy configuration files
 ##############################
 
-- name: Create containerd directory if it does not exist
-  ansible.builtin.file:
-    path: "{{ k8s_home_dir }}"
+- name: Create directories if it does not exist
+  file:
+    path: "{{ item.path }}"
     state: directory
     mode: '0755'
+  with_items: "{{ k8s_dir }}"
 
 #containerd prerequisites, first load two modules and configure them to load on boot
 #https://kubernetes.io/docs/setup/production-environment/container-runtimes/

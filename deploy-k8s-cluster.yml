@@ -45,7 +45,7 @@
   hosts: "c1-master1"
   become: true
   gather_facts: yes
-  
-  role:
-    control-plane-node
+    
+  roles:
+    - control-plane-node
   tags: control_plane
