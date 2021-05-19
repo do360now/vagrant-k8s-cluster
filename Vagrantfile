@@ -40,15 +40,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
        end
   end
 
-# k8s Node 1. 
-  config.vm.define "c1-node1" do |app|
-    app.vm.hostname = "c1-node1"
-    app.vm.network :private_network, ip: "192.168.60.5"
-  end
+# # k8s Node 1. 
+#   config.vm.define "c1-node1" do |app|
+#     app.vm.hostname = "c1-node1"
+#     app.vm.network :private_network, ip: "192.168.60.5"
+#   end
 
-# k8s Node 2. 
-  config.vm.define "c1-node2" do |app|
-    app.vm.hostname = "c1-node2"
-    app.vm.network :private_network, ip: "192.168.60.6"
-  end
+# # k8s Node 2. 
+#   config.vm.define "c1-node2" do |app|
+#     app.vm.hostname = "c1-node2"
+#     app.vm.network :private_network, ip: "192.168.60.6"
+#   end
 end
